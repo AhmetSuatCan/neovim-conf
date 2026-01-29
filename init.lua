@@ -1,4 +1,4 @@
-vim.cmd("language en_US")
+pcall(vim.cmd, "language en_US.UTF-8")
 
 -- Bootstrap lazy.nvim (auto-installs on first run)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

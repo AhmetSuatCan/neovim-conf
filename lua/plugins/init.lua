@@ -73,17 +73,16 @@ return {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
+    build = ":TSInstall javascript typescript html css lua python go vim vimdoc",
+    lazy = false,
     config = function()
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = { "javascript", "typescript", "html", "css", "lua", "python", "go" },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-      }
-    end
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "javascript", "typescript", "html", "css", "lua", "python", "go", "vim", "help" },
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+    end,
   },
 
   -- LSP
