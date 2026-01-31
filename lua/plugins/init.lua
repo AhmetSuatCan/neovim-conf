@@ -73,11 +73,11 @@ return {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSInstall javascript typescript html css lua python go vim vimdoc",
+    build = ":TSInstall javascript typescript html css lua python go vim vimdoc gdscript",
     lazy = false,
     config = function()
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "javascript", "typescript", "html", "css", "lua", "python", "go", "vim", "help" },
+        pattern = { "javascript", "typescript", "html", "css", "lua", "python", "go", "vim", "help", "gdscript" },
         callback = function()
           pcall(vim.treesitter.start)
         end,
@@ -96,7 +96,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls" }
+        ensure_installed = { "lua_ls", "ts_ls", "eslint", "tailwindcss", "html", "pylsp", "gopls" }
       })
 
       local on_attach = function(_, _)
@@ -110,7 +110,7 @@ return {
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local servers = { "lua_ls", "ts_ls", "eslint", "tailwindcss", "html", "pylsp", "gopls" }
+      local servers = { "lua_ls", "ts_ls", "eslint", "tailwindcss", "html", "pylsp", "gopls", "gdscript" }
       for _, server in ipairs(servers) do
         local opts = { on_attach = on_attach, capabilities = capabilities }
         if server == "lua_ls" then
